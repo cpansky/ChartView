@@ -77,9 +77,9 @@ public struct LineChartView: View {
                             if (self.rateValue ?? 0 != 0)
                             {
                                 if (self.rateValue ?? 0 >= 0){
-                                    Image(systemName: "arrow.up")
+                                    Image("arrow.up")
                                 }else{
-                                    Image(systemName: "arrow.down")
+                                    Image("arrow.down")
                                 }
                                 Text("\(self.rateValue!)%")
                             }

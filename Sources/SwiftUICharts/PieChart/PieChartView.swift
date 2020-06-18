@@ -28,7 +28,18 @@ public struct PieChartView : View {
         self.dropShadow = dropShadow!
     }
     
-    public var body: some View {
+	fileprivate func buildImage() -> some View {
+		#if canImport(UIKit)
+		return Image(systemName: "chart.pie.fill")
+			.imageScale(.large)
+			.foregroundColor(self.style.legendTextColor)
+		#else
+		return Image("chart.pie.fill")
+			.foregroundColor(self.style.legendTextColor)
+		#endif
+	}
+	
+	public var body: some View {
         ZStack{
             Rectangle()
                 .fill(self.style.backgroundColor)
@@ -40,9 +51,7 @@ public struct PieChartView : View {
                         .font(.headline)
                         .foregroundColor(self.style.textColor)
                     Spacer()
-                    Image(systemName: "chart.pie.fill")
-                        .imageScale(.large)
-                        .foregroundColor(self.style.legendTextColor)
+					buildImage()
                 }.padding()
                 PieChartRow(data: data, backgroundColor: self.style.backgroundColor, accentColor: self.style.accentColor)
                     .foregroundColor(self.style.accentColor).padding(self.legend != nil ? 0 : 12).offset(y:self.legend != nil ? 0 : -10)
